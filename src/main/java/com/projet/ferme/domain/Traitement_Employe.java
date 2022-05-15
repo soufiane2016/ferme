@@ -1,7 +1,6 @@
 package com.projet.ferme.domain;
 
 import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,21 +17,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attachment {
-	
+public class Traitement_Employe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
 	private Long id;
-	private String image_path;
 	private Timestamp created_at;
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Bon_Sortie bon_sortie;
+	private Employe employe;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Bon_Entree bon_entree;
+	private Traitement_Chimique traitement_chimique;
 
 }

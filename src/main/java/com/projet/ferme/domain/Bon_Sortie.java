@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,27 +21,27 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exit_Voucher {
+public class Bon_Sortie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
 	private Long id;
-	private Timestamp exit_date;
+	private Timestamp date_sortie;
 	private String observation;
 	private Timestamp created_at;
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "exit_voucher")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bon_sortie")
 	private Collection<Attachment> attachments;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "exit_voucher")
-	private Collection<Line_Exit> line_Exits;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "exit_voucher")
-	private Collection<Stock_Chemical_Treatment> stock_chemical_treatments;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bon_sortie")
+	private Collection<Ligne_Sortie> ligne_sorties;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Transportation transportation;
+	private Transport transport;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="bon_sortie")
+	private Serre serre;
 
 }

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,12 +32,15 @@ public class Ligne_Sortie {
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "ligneSortie_produit")
 	private Produit produit;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "ligneEntree_bonSortie")
 	private Bon_Sortie bon_sortie;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="ligne_sortie")
+	@JsonManagedReference(value = "ligneSortie_stock")
 	private Collection<Stock_Traitement_Chimique> stock_traitement_chimiques;
 }

@@ -1,19 +1,16 @@
 package com.projet.ferme.domain;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @Data
 @Entity
@@ -29,14 +26,19 @@ public class Serre {
 	private Timestamp created_at;
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
+
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Traitement_Chimique traitement_chimique;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "parcelle_serre")
 	private Parcelle parcelle;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+
+	@Nullable
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "serre")
+	@JsonBackReference(value = "bonSortie_serre")
 	private Bon_Sortie bon_sortie;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="serre")
+	@JsonManagedReference(value = "serre_trait")
+	private Collection<Traitement_serre_produit> traitement_serre_produits;
 	
 }

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Equipe {
 	private Timestamp deleted_at;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
+	@JsonManagedReference(value = "employe_equipe")
 	private Collection<Employe> employes;
 
 }

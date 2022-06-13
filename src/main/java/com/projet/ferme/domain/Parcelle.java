@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +35,10 @@ public class Parcelle {
 	private Timestamp deleted_at;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="parcelle")
+	@JsonManagedReference(value = "parcelle_serre")
 	private Collection<Serre> serres;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+    @JsonBackReference(value = "bloc_parcelle")
 	private Bloc bloc;
 }

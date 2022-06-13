@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,11 @@ public class Employe {
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "employe_equipe")
 	private Equipe equipe;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="employe")
+	@JsonManagedReference(value = "employe_traitementEmploye")
 	private Collection<Traitement_Employe> traitement_employes;
 }

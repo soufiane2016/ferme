@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,12 +33,15 @@ public class Transport {
 	private Timestamp deleted_at;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="transport")
+	@JsonManagedReference(value = "transport_voyage")
 	private Collection<Voyage> voyages;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="transport")
+	@JsonManagedReference(value = "bonSortie_transport")
 	private Collection<Bon_Sortie> bon_sorties;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "chauffeur_transport")
 	private Chauffeur chauffeur;
 	
 	

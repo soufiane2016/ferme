@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,17 +28,21 @@ public class Bon_Entree {
     @Column(updatable = false, nullable = false)
 	private Long id;
 	private Timestamp date_entree;
+	private String observation;
 	private Timestamp created_at;
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonBackReference(value = "bonEntree_fournisseur")
 	private Fournisseur fournisseur;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="bon_entree")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="bon_entree")
+	@JsonManagedReference(value = "attachment_bonEntree")
 	private Collection<Attachment> attachments;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="bon_entree")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="bon_entree")
+	@JsonManagedReference(value = "ligneEntree_bonEntree")
 	private Collection<Ligne_Entree> ligne_entrees;
 
 }

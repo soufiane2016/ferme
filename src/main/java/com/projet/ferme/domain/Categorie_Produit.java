@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,9 +27,10 @@ public class Categorie_Produit {
 	private Long id;
 	private String nom_categorie;
 	private Timestamp created_at;
-	private Timestamp updates_at;
+	private Timestamp updated_at;
 	private Timestamp deleted_at;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="categorie_produit")
+	@JsonManagedReference(value = "categorieProduit_produit")
 	private Collection<Produit> produits;
 }

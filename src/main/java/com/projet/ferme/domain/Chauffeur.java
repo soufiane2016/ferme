@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,9 +36,11 @@ public class Chauffeur {
 	private Timestamp deleted_at;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="chauffeur")
+	@JsonManagedReference(value = "chauffeur_permis")
 	private Collection<Permis> permis;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="chauffeur")
+	@JsonManagedReference(value = "chauffeur_transport")
 	private Collection<Transport> transports;
 
 }

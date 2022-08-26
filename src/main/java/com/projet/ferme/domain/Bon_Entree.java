@@ -2,6 +2,7 @@ package com.projet.ferme.domain;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,8 +28,9 @@ public class Bon_Entree {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
 	private Long id;
-	private Timestamp date_entree;
+	private Date date_entree;
 	private String observation;
+	private Long num_bonEntree;
 	private Timestamp created_at;
 	private Timestamp updates_at;
 	private Timestamp deleted_at;

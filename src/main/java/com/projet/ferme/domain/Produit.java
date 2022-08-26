@@ -4,14 +4,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -35,7 +28,7 @@ public class Produit {
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="produit")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="produit", fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "ligneEntree_produit")
 	private Collection<Ligne_Entree> line_Entrees;
 	

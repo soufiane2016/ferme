@@ -8,7 +8,8 @@ import java.util.Date;
 @Data
 public class Bon_EntreeDto {
     private Long id;
-    private Timestamp date_enree;
+    private Long num_bonEntree;
+    private Date date_entree;
     private String observation;
     private Long fournisseurId;
     private Timestamp created_at;

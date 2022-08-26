@@ -2,13 +2,7 @@ package com.projet.ferme.domain;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -31,7 +25,7 @@ public class Ligne_Entree {
 	private Timestamp updates_at;
 	private Timestamp deleted_at;
 	
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JsonBackReference(value = "ligneEntree_produit")
 	private Produit produit;
 	
